@@ -73,3 +73,7 @@
 ####18. Letters only please####
 
 * cat /etc/ssh/sshd_config | grep -i '^[a-z]' : Display all lines of the file /etc/ssh/sshd_config starting with a letter.
+
+####19. A to Z####
+
+* tr "A" "Z" | tr "c" "e" 
