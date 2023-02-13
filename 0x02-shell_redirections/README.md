@@ -89,3 +89,7 @@
 ####22. DJ Cut Killer####
 
 * cut -d ":" -f1,6 /etc/passwd | sort :  a script that displays all users and their home directories, sorted by users.
+
+####23. Empty casks make the most noise####
+
+* find . -empty | rev | cut -d "/" -f 1 | rev : a command that finds all empty files and directories in the current directory and all sub-directories.
