@@ -37,3 +37,7 @@ echo "Best School" > \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) : a shell script tha
 ####9. Duplicate last line####
 
 *tail -1 iacta >> iacta :  a script that duplicates the last line of the file iacta
+
+####10. No more javascript####
+
+*find . type f -name | rm *.js :  a script that deletes all the regular files (not the directories) with a .js extension that are present in the current directory and all its subfolders.
