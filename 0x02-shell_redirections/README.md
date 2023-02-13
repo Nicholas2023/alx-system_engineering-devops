@@ -17,3 +17,7 @@
 ####4.Last lines of a file####
 
 *tail /etc/passwd : Display the last 10 lines of /etc/passwd
+
+####5. I'd prefer the first ones actually####
+
+*head /etc/passwd : Display the first 10 lines of /etc/passwd
