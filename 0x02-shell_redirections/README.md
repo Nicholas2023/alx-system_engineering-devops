@@ -28,7 +28,7 @@
 
 ####7. It is a good file that cuts iron without making a noise#
 
-echo "Best School" > \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) : a shell script that creates a file named exactly \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) containing the text Best School ending by a new line.
+*echo "Best School" > \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) : a shell script that creates a file named exactly \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) containing the text Best School ending by a new line.
 
 ####8. Save current state of directory####
 
@@ -40,4 +40,8 @@ echo "Best School" > \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) : a shell script tha
 
 ####10. No more javascript####
 
-*find . type f -name | rm *.js :  a script that deletes all the regular files (not the directories) with a .js extension that are present in the current directory and all its subfolders.
+*find . -type f -name | rm *.js :  a script that deletes all the regular files (not the directories) with a .js extension that are present in the current directory and all its subfolders.
+
+####11. Don't just count your directories, make your directories count####
+
+*find . -type d ! -path |wc -l :  a script that counts the number of directories and sub-directories in the current directory.
