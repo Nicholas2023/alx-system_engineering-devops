@@ -77,3 +77,7 @@
 ####19. A to Z####
 
 * tr "A" "Z" | tr "c" "e" 
+
+####20. Without C, you would live in hiago####
+
+* tr -d "Cc" : Create a script that removes all letters c and C from input.
