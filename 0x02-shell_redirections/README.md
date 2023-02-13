@@ -81,3 +81,7 @@
 ####20. Without C, you would live in hiago####
 
 * tr -d "Cc" : Create a script that removes all letters c and C from input.
+
+####21. esreveR####
+
+* rev
