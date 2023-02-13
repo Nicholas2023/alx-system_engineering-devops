@@ -57,3 +57,7 @@
 ####14. It must be in that file####
 
 * cat /etc/passwd | grep root : Display lines containing the pattern “root” from the file /etc/passwd
+
+####15. Count that word####
+
+* cat /etc/passwd | grep bin | wc -l : Display the number of lines that contain the pattern “bin” in the file /etc/passwd
