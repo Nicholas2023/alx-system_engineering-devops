@@ -21,3 +21,7 @@
 ####5. I'd prefer the first ones actually####
 
 *head /etc/passwd : Display the first 10 lines of /etc/passwd
+
+####6. Line #2####
+
+*head -3 iacta | tail +3 :  a script that displays the third line of the file iacta.
