@@ -61,3 +61,7 @@
 ####15. Count that word####
 
 * cat /etc/passwd | grep bin | wc -l : Display the number of lines that contain the pattern “bin” in the file /etc/passwd
+
+####16. What's next?####
+
+* cat /etc/passwd | grep -A 3 root : Display lines containing the pattern “root” and 3 lines after them in the file /etc/passwd
