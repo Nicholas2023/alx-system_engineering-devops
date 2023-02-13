@@ -8,8 +8,12 @@
 
 ####Let's display a file####
 
-*cat /etc/passwd > 2-hellofile : Displays the content of /etc/passwd file.
+*cat /etc/passwd : Displays the content of /etc/passwd file.
 
 ####3. What about 2?####
 
-*echo cat /temp/passwd /temp/hosts : Display the content of /etc/passwd and /etc/hosts
+*cat /temp/passwd /temp/hosts : Display the content of /etc/passwd and /etc/hosts
+
+####4.Last lines of a file####
+
+*tail /etc/passwd : Display the last 10 lines of /etc/passwd
