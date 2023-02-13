@@ -45,3 +45,7 @@
 ####11. Don't just count your directories, make your directories count####
 
 *find . -type d ! -path |wc -l :  a script that counts the number of directories and sub-directories in the current directory.
+
+####12. What’s new####
+
+*ls -lt | head :  a script that displays the 10 newest files in the current directory.
