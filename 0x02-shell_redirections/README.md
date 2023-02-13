@@ -25,3 +25,7 @@
 ####6. Line #2####
 
 *head -3 iacta | tail +3 :  a script that displays the third line of the file iacta.
+
+####7. It is a good file that cuts iron without making a noise#
+
+echo "Best School" > \*\\'"Best School"\'\\*$\?\*\*\*\*\*:)
