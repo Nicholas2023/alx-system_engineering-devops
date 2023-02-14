@@ -63,3 +63,8 @@
 ####12. Combination####
 
 * echo {a..z}{a..z}|tr ' ' '\n'| grep -v "oo" :  script that prints all possible combinations of two letters, except oo.
+
+
+####13. Floats####
+
+* printf '%.2f\n' $NUM : a script that prints a number with two decimal places, followed by a new line
