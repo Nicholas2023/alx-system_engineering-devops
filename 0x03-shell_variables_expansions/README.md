@@ -83,3 +83,8 @@
 ####16. The eggs of the brood need to be an odd number####
 
 * paste -d, - - | cut -d, f1 :  a script that prints every other line from the input, starting with the first line.
+
+
+####17. I'm an instant star. Just add water and stir.####
+
+* printf "%0\n" $(( $((5#$(echo $WATER |tr water 01234))) * $((5#$(echo $STIR |tr stir. 01234))) )) | tr 01234567 bestchol :  a shell script that adds the two numbers stored in the environment variables WATER and STIR and prints the result.
