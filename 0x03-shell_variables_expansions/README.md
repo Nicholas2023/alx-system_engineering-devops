@@ -27,4 +27,4 @@
 
 ####5. Local variables####
 
-* diff set.sorted printenv.sorted | grep "<" :  a script that lists all local variables and environment variables, and functions.
+* set : a script that lists all local variables and environment variables, and functions.
