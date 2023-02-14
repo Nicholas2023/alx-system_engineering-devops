@@ -18,3 +18,8 @@
 ####3. If the path be beautiful, let us not ask where it leads####
 
 * echo $PATH | tr ':' '\n' | wc -l : a script that counts the number of directories in the PATH.
+
+
+####4. Global variables####
+
+* echo printenv : a script that lists environment variables.
