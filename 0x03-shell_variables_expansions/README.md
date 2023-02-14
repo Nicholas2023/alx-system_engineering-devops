@@ -58,3 +58,8 @@
 ####11. There are 10 types of people in the world -- Those who understand binary, and those who don't####
 
 * echo $((2#$BINARY)) : a script that converts a number from base 2 to base 10
+
+
+####12. Combination####
+
+* echo {a..z}{a..z}|tr ' ' '\n'| grep -v "oo" :  script that prints all possible combinations of two letters, except oo.
