@@ -53,3 +53,8 @@
 ####10. Love is anterior to life, posterior to death, initial of creation, and the exponent of breath####
 
 * echo $(($BREATH**$LOVE))
+
+
+####11. There are 10 types of people in the world -- Those who understand binary, and those who don't####
+
+* echo $((2#$BINARY)) : a script that converts a number from base 2 to base 10
