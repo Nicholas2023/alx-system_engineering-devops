@@ -28,3 +28,8 @@
 ####5. Local variables####
 
 * set : a script that lists all local variables and environment variables, and functions.
+
+
+####6. Local variable####
+
+* BEST="School" :  a script that creates a new local variable.
