@@ -73,3 +73,8 @@
 ####14. Decimal to Hexadecimal####
 
 * printf '%x\n' $DECIMAL : a script that converts a number from base 10 to base 16.
+
+
+####15. Everyone is a proponent of strong encryption####
+
+* tr 'A-Za-z' 'N-ZA-Mn-za-m' : a script that encodes and decodes text using the rot13 encryption. Assume ASCII.
