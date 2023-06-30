@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# A sript that displays a list of currently running processes
+
+# Header for the process list
+printf "%-10s %-8s %-8s %-8s %-8s %-8s %-8s %-8s %s\n" "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "COMMAND"
+
+# Iterate over each process in the /proc directory
+for proc in /proc/*/; do
+    pid=$(basename "$proc")
+
+    # Skip if the basename is not a number (not a valid PID)
+    if ! [[ "$pid" =~ ^[0-9]+$ ]]; then
+        continue
+    fi
+
+    # Retrieve process information from the /proc/PID directory
+    user=$(awk '/^Uid:/{printf "%s", $2}' "$proc/status")
+    cmdline=$(tr -d '\0' < "$proc/cmdline")
+    stat=$(awk '{printf "%s", $3}' "$proc/stat")
+    tty=$(awk '{printf "%s", $7}' "$proc/stat")
+    cpu=$(awk '{printf "%s", $14 + $15}' "$proc/stat")
+    mem=$(awk '{printf "%s", ($24 * 100) / (1024 * 1024)}' "$proc/stat")
+    vsz=$(awk '{printf "%s", $23 / 1024}' "$proc/stat")
+    rss=$(awk '{printf "%s", $24 * 4}' "$proc/stat")
+
+    # Get the command associated with the process
+    if [ -z "$cmdline" ]; then
+        command="[$(tr -d '\0' < "$proc/comm")]"
+    else
+        command="$cmdline"
+    fi
+
+    # Get the username associated with the UID of the process
+    if [ -n "$user" ]; then
+        username=$(getent passwd "$user" | awk -F: '{printf "%s", $1}')
+    fi
+
+    # Display the process information in the desired format
+    printf "%-10s %-8s %-8s %-8s %-8s %-8s %-8s %-8s %s\n" "$username" "$pid" "$cpu" "$mem" "$vsz" "$rss" "$tty" "$stat" "$command"
+done
