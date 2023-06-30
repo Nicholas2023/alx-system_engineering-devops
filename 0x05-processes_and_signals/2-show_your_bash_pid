@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# A script that displays lines containing the bash
+
+# Use ps cmd to list all proc and grep for wors bash
+ps_output=$(ps aux | grep bash)
+
+# Extract the line containing the bash cmd and its PID
+bash_line=$(echo "$ps_output" | grep -v grep | grep bash)
+
+# Extract the PID from the line
+pid=$(echo "$bash_line" | awk '{print $2}')
+
+# Display the process info
+echo "$ps_output"
