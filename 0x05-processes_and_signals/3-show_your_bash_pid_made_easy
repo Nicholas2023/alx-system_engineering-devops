@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# A script that displays the pid along with proc name
+
+# Use pgrep to find PIDs of proc containing "bash"
+pids=$(pgrep -fl bash)
+
+# Loop through the PID and process names
+while IFS= read -r pid_name; do
+    # Extract PID and process name
+    pid=$(echo "$pid_name" | awk '{print $1}')
+    process_name=$(echo "$pid_name" | awk '{print $2}')
+
+    # Display PID and process name
+    echo "$pid $process_name"
+done <<< "$pids"
