@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script installs and configures Nginx server on Ubuntu machine
+
+# Update package list
+apt-get update
+
+# Install Nginx
+apt-get -y install nginx
+
+# Allow incoming HTTP traffic
+ufw allow 'Nginx HTTP'
+
+# Create an "index.html" file with "Hello World!" content in the default web root
+echo "Hello World!" > /var/www/html/index.html
+
+# Start the Nginx service
+service nginx start
