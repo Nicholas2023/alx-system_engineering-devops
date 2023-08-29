@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# A script that configures Nginx server to redirect to another page
+
+# Update package list and install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Create index page
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+
+# Define the string for replacement in the Nginx config
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+
+# Use sed to replace the existing configuration with the redirection rule
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+
+# Restart Nginx to apply changes
+sudo service nginx restart
