@@ -1,18 +1,46 @@
 #!/usr/bin/env bash
-# A script that configures Nginx server to redirect to another page
+# Installs, configures, and starts the Nginx server
 
-# Update package list and install nginx
-sudo apt-get update
-sudo apt-get install -y nginx
+# Update package list
+apt-get update
 
-# Create index page
-echo 'Hello World!' | sudo tee /var/www/html/index.html
+# Install Nginx
+apt-get -y install nginx
 
-# Define the string for replacement in the Nginx config
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+# Allow Nginx HTTP traffic
+sudo ufw allow 'Nginx HTTP'
 
-# Use sed to replace the existing configuration with the redirection rule
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+# Create the web root directory
+mkdir -p /var/www/html/
 
-# Restart Nginx to apply changes
-sudo service nginx restart
+# Set permissions for the web root directory
+sudo chmod -R 755 /var/www
+
+# Create a default "Hello World!" index page
+echo 'Hello World!' > /var/www/html/index.html
+
+# Define the Nginx configuration
+SERVER_CONFIG=\
+"server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+    if (\$request_filename ~ redirect_me){
+        rewrite ^ https://sketchfab.com/bluepeno/models permanent;
+    }
+}"
+
+# Apply the Nginx configuration
+bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+
+# Check if Nginx is running and start or restart accordingly
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+    service nginx start
+else
+    service nginx restart
+fi;
