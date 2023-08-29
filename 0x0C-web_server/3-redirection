@@ -1,46 +1,30 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the Nginx server
-
-# Update package list
+# Installs, configures, and starts the server
 apt-get update
-
-# Install Nginx
 apt-get -y install nginx
-
-# Allow Nginx HTTP traffic
 sudo ufw allow 'Nginx HTTP'
-
-# Create the web root directory
 mkdir -p /var/www/html/
-
-# Set permissions for the web root directory
 sudo chmod -R 755 /var/www
-
-# Create a default "Hello World!" index page
 echo 'Hello World!' > /var/www/html/index.html
-
-# Define the Nginx configuration
 SERVER_CONFIG=\
 "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-    server_name _;
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-    if (\$request_filename ~ redirect_me){
-        rewrite ^ https://sketchfab.com/bluepeno/models permanent;
-    }
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files \$uri \$uri/ =404;
+	}
+	if (\$request_filename ~ redirect_me){
+		rewrite ^  https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+	}
 }"
 
-# Apply the Nginx configuration
 bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
 
-# Check if Nginx is running and start or restart accordingly
 if [ "$(pgrep -c nginx)" -le 0 ]; then
-    service nginx start
+	service nginx start
 else
-    service nginx restart
-fi;
+	service nginx restart
+fi
