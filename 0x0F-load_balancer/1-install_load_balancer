@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Replace with your actual student ID
+STUDENT_ID="281042"
+
+# Update the package list
+sudo apt-get update
+
+# Install HAProxy
+sudo apt-get -y install haproxy
+
+# HAProxy configuration
+HAPROXY_CONFIG="/etc/haproxy/haproxy.cfg"
+
+# Create a backup of the original HAProxy configuration
+sudo cp "$HAPROXY_CONFIG" "$HAPROXY_CONFIG.backup"
+
+# Configure HAProxy
+cat <<EOL | sudo tee "$HAPROXY_CONFIG" > /dev/null
+global
+    log /dev/log    local0
+    log /dev/log    local1 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
+
+frontend my-frontend
+    bind *:80
+    mode http
+    default_backend my-backend
+
+backend my-backend
+    balance roundrobin
+    mode http
+    server $STUDENT_ID-web-01 18.235.255.120:80 check
+    server $STUDENT_ID-web-02 52.201.157.77:80 check
+
+EOL
+
+# Verify HAProxy configuration
+sudo haproxy -c -f "$HAPROXY_CONFIG"
+
+# Enable HAProxy as a service
+sudo systemctl enable haproxy
+
+# Start HAProxy
+sudo systemctl start haproxy
