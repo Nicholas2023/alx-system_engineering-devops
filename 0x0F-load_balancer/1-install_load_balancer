@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Replace with your actual student ID
 STUDENT_ID="281042"
