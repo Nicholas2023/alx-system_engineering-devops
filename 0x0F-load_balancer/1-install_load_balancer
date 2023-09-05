@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Replace with your actual student ID
-STUDENT_ID="281042"
-
 # Update the package list
 sudo apt-get update
 
@@ -41,8 +38,8 @@ frontend my-frontend
 backend my-backend
     balance roundrobin
     mode http
-    server $STUDENT_ID-web-01 18.235.255.120:80 check
-    server $STUDENT_ID-web-02 52.201.157.77:80 check
+    server 281042-web-01 18.235.255.120:80 check
+    server 281042-web-02 52.201.157.77:80 check
 
 EOL
 
