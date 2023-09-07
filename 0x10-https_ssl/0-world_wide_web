@@ -1,24 +1,18 @@
 #!/usr/bin/env bash
-# A script that configures domain zone
+# write a Bash script that will display information about the subdomains
 
-domain="$1"
-subdomain="$2"
+dns_config () {
+    script=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tr '\t' '\n' | tail -2 | tr '\n' ' ')
+    echo "$2 $script" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
+}
 
-subdomains=("www" "lb-01" "web-01" "web-02")
-
-if [ -z "$domain" ]; then
-  echo "Please provide a domain name as the first argument."
-  exit 1
-fi
-
-if [ -z "$subdomain" ]; then
-  for sub in "${subdomains[@]}"; do
-    record_type=$(dig "$sub.$domain" +short -t A | awk '{ print "A" }')
-    destination=$(dig "$sub.$domain" +short -t A)
-    echo "The subdomain $sub is a $record_type record and points to $destination"
-  done
-else
-  record_type=$(dig "$subdomain.$domain" +short -t A | awk '{ print "A" }')
-  destination=$(dig "$subdomain.$domain" +short -t A)
-  echo "The subdomain $subdomain is a $record_type record and points to $destination"
+if [ "$#" == 1 ]
+then
+  dns_config "$1" "www"
+  dns_config "$1" "lb-01"
+  dns_config "$1" "web-01"
+  dns_config "$1" "web-02"
+elif [ "$#" == 2 ]
+then
+  dns_config "$1" "$2"
 fi
