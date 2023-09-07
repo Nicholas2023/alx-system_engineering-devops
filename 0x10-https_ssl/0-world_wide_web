@@ -1,32 +1,18 @@
 #!/usr/bin/env bash
-# Domain zone configuration
+#Configure your domain zone so that the subdomain www and display information about subdomains
 
-domain="$1"
-subdomain="$2"
-
-dns_config() {
-    local sub="$1"
-    local result
-    local record_type
-
-    result=$(dig +short "$sub.$domain")
-    record_type=$(dig +short -t A "$sub.$domain" | awk '{print "A"}')
-
-    if [ -n "$result" ]; then
-        echo "The subdomain $sub is a $record_type record and points to $result"
-    else
-        echo "The subdomain $sub does not exist or has no DNS records."
-    fi
-}
-
-if [ "$#" -eq 1 ]; then
-    dns_config "www"
-    dns_config "lb-01"
-    dns_config "web-01"
-    dns_config "web-02"
-elif [ "$#" -eq 2 ]; then
-    dns_config "$subdomain"
-else
-    echo "Usage: $0 domain [subdomain]"
-    exit 1
+if [ "$#" = 1 ]
+then
+    subdomains=("www" "lb-01" "web-01" "web-02")
+    for sub_domain in "${subdomains[@]}"
+    do
+	record_type=$(dig $sub_domain.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $4}')
+        destination=$(dig $sub_domain.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $5}')
+	echo "The subdomain $sub_domain is a $record_type record and points to $destination"
+    done
+elif [ "$#" = 2 ]
+then
+    record_type=$(dig $2.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $4}')
+    destination=$(dig $2.$1 | grep -A1 'ANSWER SECTION' | tail -1 | awk '{print $5}')
+    echo "The subdomain $2 is a $record_type record and points to $destination"
 fi
