@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Domain zone configuration
 
-
 domain="$1"
 subdomain="$2"
 
@@ -10,8 +9,8 @@ dns_config() {
     local result
     local record_type
 
-    result=$(dig "$sub.$domain" +short)
-    record_type=$(dig "$sub.$domain" +short -t A | awk '{print "A"}')
+    result=$(dig +short "$sub.$domain")
+    record_type=$(dig +short -t A "$sub.$domain" | awk '{print "A"}')
 
     if [ -n "$result" ]; then
         echo "The subdomain $sub is a $record_type record and points to $result"
@@ -20,12 +19,12 @@ dns_config() {
     fi
 }
 
-if [ "$#" == 1 ]; then
+if [ "$#" -eq 1 ]; then
     dns_config "www"
     dns_config "lb-01"
     dns_config "web-01"
     dns_config "web-02"
-elif [ "$#" == 2 ]; then
+elif [ "$#" -eq 2 ]; then
     dns_config "$subdomain"
 else
     echo "Usage: $0 domain [subdomain]"
