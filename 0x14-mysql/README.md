@@ -1,4 +1,4 @@
-# MySQL Setup and Replication Tasks
+# MySQL Setup and Replication Tasks :smile:
 
 This repository contains scripts and instructions for setting up MySQL, creating users, databases, and configuring replication between two servers (primary and replica).
 
