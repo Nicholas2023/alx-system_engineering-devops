@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Accepts one arg and Runs whoami cmd 
+
+su -u "$1" whoami
