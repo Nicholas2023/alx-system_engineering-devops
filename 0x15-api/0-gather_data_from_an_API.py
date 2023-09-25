@@ -18,13 +18,16 @@ def get_employee_todo_progress(employee_id: int) -> None:
     users = requests.get(user_url).json()
 
     # Find the user by employee ID
-    user: Dict[str, Union[int, str]] = [i for i in users if i.get('id') == employee_id][0]
+    user: Dict[str, Union[int, str]] =
+    [i for i in users if i.get('id') == employee_id][0]
 
     # Filter tasks for the specified employee
-    tasks: List[Dict[str, Any]] = [i for i in data if i.get('userId') == employee_id]
+    tasks: List[Dict[str, Any]] =
+    [i for i in data if i.get('userId') == employee_id]
 
     # Filter completed tasks
-    completed_tasks: List[Dict[str, Any]] = [i for i in tasks if i.get('completed') is True]
+    completed_tasks: List[Dict[str, Any]] =
+    [i for i in tasks if i.get('completed') is True]
 
     # Print progress information
     print("Employee {} is done with tasks ({}/{}):".format(
