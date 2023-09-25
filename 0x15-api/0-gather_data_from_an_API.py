@@ -30,7 +30,7 @@ def get_employee_todo_progress(employee_id: int) -> None:
         [i for i in tasks if i.get('completed') is True]
 
     # Print progress information
-    print("Employee {} is done with tasks ({}/{}):".format(
+    print("Employee {} is done with tasks({}/{}):".format(
         user.get('name'), len(completed_tasks), len(tasks)))
 
     for task in completed_tasks:
