@@ -27,6 +27,6 @@ if __name__ == "__main__":
         lis = expo.get(argv[1])
         for task in tasks:
             lis.append({"task": task.get('title'), "completed": task.
-                      get('completed'), "username": user.get('username')})
+                       get('completed'), "username": user.get('username')})
         f.write(json.dumps(expo))
         f.close()
