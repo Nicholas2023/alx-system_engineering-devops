@@ -28,7 +28,7 @@ if __name__ == "__main__":
     user = next((u for u in users_data if u['id'] == user_id), None)
 
     if user is None:
-        print("User not found.")
+        print("User ID and Username: User not found.")
     else:
         # Filter tasks owned by the user
         user_tasks = [task for task in todos_data if task['userId'] == user_id]
@@ -38,8 +38,6 @@ if __name__ == "__main__":
 
         # Write data to CSV file
         with open(csv_file_name, mode='w', newline='') as csv_file:
-            fieldnames =\
-                ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']
             writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
 
             writer.writerow([
