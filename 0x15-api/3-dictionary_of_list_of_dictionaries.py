@@ -16,10 +16,10 @@ if __name__ == '__main__':
             id = str(user.get('id'))
             tasks = [i for i in data if i.get('userId') == int(id)]
             expo = {id: []}
-            l = expo.get(id)
+            lis = expo.get(id)
             for task in tasks:
-                l.append({"task": task.get('title'), "completed": task.
-                          get('completed'), "username": user.get('username')})
+                lis.append({"task": task.get('title'), "completed": task.
+                           get('completed'), "username": user.get('username')})
             res.update(expo.copy())
             expo.clear()
         f.write(json.dumps(res))
