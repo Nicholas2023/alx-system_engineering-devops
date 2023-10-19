@@ -1,6 +1,6 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 # Path to the Gunicorn PID file
+
 PID_FILE="/path/to/gunicorn.pid"
 
 # Check if the PID file exists
