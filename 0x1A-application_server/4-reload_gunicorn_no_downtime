@@ -1,27 +1,23 @@
-#!/usr/bin/env bash
-# Gracefully reloads Gunicorn.
+#!/bin/bash
 
-# Get the old PID from file
-oldpid=$(<./deploy/gunicorn.pid)
+# Path to the Gunicorn PID file
+PID_FILE="/path/to/gunicorn.pid"
 
-# Send USR2 signal to gracefully reload Gunicorn
-kill -USR2 "$oldpid"
-sleep 1
-
-# Check for newpid within a timeout period
-timeout=5
-while [[ $timeout -gt 0 ]]; do
-  newpid=$(<./deploy/gunicorn.pid.2)
-  if kill -0 "$newpid"; then
-    break
-  else
-    sleep 0.5
-    ((timeout--))
-  fi
-done
-
-# Shutdown the old process
-echo "Success. Newpid=$newpid"
-kill -WINCH "$oldpid"
-sleep 1
-kill -TERM "$oldpid"
+# Check if the PID file exists
+if [ -f "$PID_FILE" ]; then
+    # Get the old PID from the PID file
+    oldpid=$(cat "$PID_FILE")
+    
+    # Gracefully reload Gunicorn by sending HUP signal to the old process
+    kill -HUP "$oldpid"
+    sleep 1
+    
+    # Check if the Gunicorn process has been successfully restarted
+    if ps -p "$oldpid" > /dev/null; then
+        echo "Gunicorn reload failed. Please check the logs for more information."
+    else
+        echo "Gunicorn reload successful."
+    fi
+else
+    echo "Gunicorn PID file not found. Please ensure Gunicorn is running and the PID file path is correct."
+fi
