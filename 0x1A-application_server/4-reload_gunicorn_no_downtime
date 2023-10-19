@@ -1,4 +1,27 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
 
-pgrep gunicorn | awk '{ print $2 }' | xargs kill -HUP
+# Get the old PID from file
+oldpid=$(<./deploy/gunicorn.pid)
+
+# Send USR2 signal to gracefully reload Gunicorn
+kill -USR2 "$oldpid"
+sleep 1
+
+# Check for newpid within a timeout period
+timeout=5
+while [[ $timeout -gt 0 ]]; do
+  newpid=$(<./deploy/gunicorn.pid.2)
+  if kill -0 "$newpid"; then
+    break
+  else
+    sleep 0.5
+    ((timeout--))
+  fi
+done
+
+# Shutdown the old process
+echo "Success. Newpid=$newpid"
+kill -WINCH "$oldpid"
+sleep 1
+kill -TERM "$oldpid"
